@@ -9,7 +9,7 @@
         "url": "https://github.com/samsonmking/epaper.js/issues"
     },
     "license": "MIT",
-    "main": "lib/rpi7In5V2.js",
+    "main": "lib/rpi7In3f.js",
     "files": [
         "lib",
         "src/c",

@@ -32,11 +32,7 @@ export class Rpi7in3f implements DisplayDevice {
     }
 
     public wake() {
-        if (this.colorMode === ColorMode.Gray4) {
-            this.driver.init_4Gray();
-        } else {
-            this.driver.init();
-        }
+        this.driver.init();
     }
 
     public clear() {
@@ -48,11 +44,7 @@ export class Rpi7in3f implements DisplayDevice {
     }
 
     public async displayPng(img: Buffer, options?: ImageOptions) {
-        if (this.colorMode === ColorMode.Gray4) {
-            await this.displayPngGray4(img, options);
-        } else {
-            await this.displayPngBW(img, options);
-        }
+        await this.displayPngBW(img, options);
     }
 
     private async displayPngBW(img: Buffer, options?: ImageOptions) {
@@ -62,14 +54,5 @@ export class Rpi7in3f implements DisplayDevice {
             rotate90Degrees: this.orientation === Orientation.Vertical,
         });
         this.driver.display(blackBuffer);
-    }
-
-    private async displayPngGray4(img: Buffer, options?: ImageOptions) {
-        const converter = new GrayLR(img);
-        const grayBuffer = await converter.to4Gray({
-            ...options,
-            rotate90Degrees: this.orientation === Orientation.Vertical,
-        });
-        this.driver.display_4GrayDisplay(grayBuffer);
     }
 }
